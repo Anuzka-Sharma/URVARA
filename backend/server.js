@@ -1,31 +1,35 @@
 const express = require("express");
-require("dotenv").config();
-const db = require("./config/db"); // ✅ Correct Import
+const dotenv = require("dotenv");
+const cors = require("cors");
+const path = require("path");
+
+dotenv.config({ path: path.resolve(__dirname, "../.env") }); // ✅ Ensure .env is loaded
+
+const authRoutes = require("./routes/auth"); // ✅ Correct Import
+const db = require("./config/db"); // ✅ Database Connection
 
 const app = express();
-app.use(express.json());
 
-// ✅ Simple API Route to Test Server
+// ✅ Middleware Setup
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Enable JSON parsing
+
+// ✅ Simple API Route to Check Server
 app.get("/", (req, res) => {
-  res.send("🚀 Server is running!");
+    res.send("🚀 Server is running!");
 });
 
-// ✅ Check Database Connectivity via API
-app.get("/db-check", async (req, res) => {
-  try {
-    const [rows] = await db.query("SELECT 1"); // Simple Query to Check DB
-    res.json({ message: "✅ Database is connected!" });
-  } catch (err) {
-    res.status(500).json({ error: "❌ Database connection failed!" });
-  }
-});
+// ✅ Auth Routes Register
+app.use("/api/auth", authRoutes);
 
-// ✅ Start Server
 const PORT = process.env.PORT || 5000;
+
+// ✅ Start the Server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
-require("dotenv").config();
+
+// ✅ Debugging ENV Variables
 console.log("ENV LOADED ✅");
 console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_USER:", process.env.DB_USER);

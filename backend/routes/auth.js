@@ -1,30 +1,60 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const pool = require("../config/db");
 
 const router = express.Router();
 
-let users = []; // Temporary database
+// 📝 SIGNUP API
+router.post("/signup", async (req, res) => {
+    try {
+        console.log("Signup Request Received:", req.body);
 
-// Signup Route
-router.post("/register", async (req, res) => {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    users.push({ username, password: hashedPassword });
-    res.json({ message: "User registered successfully!" });
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: "Missing username or password" });
+        }
+
+        // 🔒 Hash password for security
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const [result] = await pool.query(
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            [username, hashedPassword]
+        );
+
+        res.status(201).json({ message: "User registered successfully!", userId: result.insertId });
+    } catch (err) {
+        console.error("Signup Error:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
-// Login Route
+// 📝 LOGIN API
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find((u) => u.username === username);
-    if (!user) return res.status(400).json({ error: "User not found" });
+    try {
+        console.log("Login Request Received:", req.body);
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: "Missing username or password" });
+        }
 
-    const token = jwt.sign({ username }, "secret_key", { expiresIn: "1h" });
-    res.json({ message: "Login successful!", token });
+        const [users] = await pool.query("SELECT * FROM users WHERE username = ?", [username]);
+        if (users.length === 0) {
+            return res.status(401).json({ error: "Invalid username or password" });
+        }
+
+        const user = users[0];
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(401).json({ error: "Invalid username or password" });
+        }
+
+        res.status(200).json({ message: "Login successful!", userId: user.id });
+    } catch (err) {
+        console.error("Login Error:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 module.exports = router;
