@@ -27,14 +27,5 @@
     </div>
 
     <script src="login.js"></script>
-    <script>
-        // हेडर को लोड करें
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                eval(document.querySelector("#header-container script").textContent);
-            });
-    </script>
 </body>
 </html>

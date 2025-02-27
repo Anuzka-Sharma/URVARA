@@ -12,7 +12,7 @@ document.getElementById("exploreBtn").addEventListener("click", function() {
         localStorage.setItem("language", selectedLang);
         changeLanguage(selectedLang);
     });
-});
+
 
 function changeLanguage(lang) {
     if (lang === "english") {
@@ -32,3 +32,5 @@ function changeLanguage(lang) {
     }
 }
     alert("Welcome to Urava! Explore farming updates now.");
+});
+ 

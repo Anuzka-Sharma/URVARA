@@ -33,18 +33,34 @@ button:hover {
 
 .features {
     display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    flex-wrap: wrap;
+    justify-content: center;  /* Center align karega */
+    gap: 30px;  /* Boxes ke beech gap badhane ke liye */
+    flex-wrap: wrap; /* Small screens ke liye wrapping allow karega */
 }
 
 .feature {
     background: white;
     padding: 20px;
     margin: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 15%;  /* Sabhi boxes ek hi size ke rahenge */
+    text-align: center;
 }
+
+@media (max-width: 992px) {
+    .feature {
+        width: 45%; /* Medium screens ke liye do column */
+    }
+}
+
+@media (max-width: 600px) {
+    .feature {
+        width: 100%; /* Chhoti screens ke liye ek column */
+    }
+}
+
+
 
 footer {
     background: #28a745;

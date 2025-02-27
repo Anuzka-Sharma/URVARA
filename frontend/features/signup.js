@@ -27,4 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("login-text").innerHTML = "पहले से खाता है? <a href='#'>लॉगिन करें</a>";
         }
     });
+    window.location.href = "http://127.0.0.1:5500/features/login.html";
+
 });
