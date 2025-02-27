@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लॉगिन - उरावा</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <!-- हेडर (Navigation Bar) Include किया -->
+    <div id="header-container"></div>
+
+    <div class="login-container">
+        <h1 id="title">लॉगिन</h1>
+        <p id="desc">अपना खाता लॉगिन करें</p>
+
+        <label for="phone" id="phoneLabel">मोबाइल नंबर:</label>
+        <input type="tel" id="phone" placeholder="अपना मोबाइल नंबर दर्ज करें">
+
+        <label for="password" id="passwordLabel">पासवर्ड:</label>
+        <input type="password" id="password" placeholder="पासवर्ड दर्ज करें">
+
+        <button id="login-btn">लॉगिन करें</button>
+
+        <p id="signup-text">नया खाता बनाना है? <a href="signup.html">साइन अप करें</a></p>
+    </div>
+
+    <script src="login.js"></script>
+    <script>
+        // हेडर को लोड करें
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                eval(document.querySelector("#header-container script").textContent);
+            });
+    </script>
+</body>
+</html>

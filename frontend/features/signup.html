@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>साइन अप - उरावा</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+
+    <div class="signup-container">
+        <h1 id="title">साइन अप</h1>
+        <p id="desc">कृपया नीचे अपना विवरण भरें</p>
+
+        <label for="name" id="nameLabel">पूरा नाम:</label>
+        <input type="text" id="name" placeholder="अपना नाम दर्ज करें">
+
+        <label for="phone" id="phoneLabel">मोबाइल नंबर:</label>
+        <input type="tel" id="phone" placeholder="अपना मोबाइल नंबर दर्ज करें">
+
+        <label for="password" id="passwordLabel">पासवर्ड:</label>
+        <input type="password" id="password" placeholder="पासवर्ड चुनें">
+
+        <label for="signup-language" id="langLabel">🌏 भाषा चुनें:</label>
+        <select id="signup-language">
+            <option value="hindi">हिन्दी</option>
+            <option value="english">English</option>
+        </select>
+
+        <button id="signup-btn">साइन अप करें</button>
+
+        <p id="login-text">पहले से खाता है? <a href="login.html">लॉगिन करें</a></p>
+    </div>
+
+    <script src="signup.js"></script>
+    <script>
+
+        // ✅ जब साइन अप बटन दबेगा, तो भाषा सेव होगी
+        document.getElementById("signup-btn").addEventListener("click", function() {
+            const selectedLang = document.getElementById("signup-language").value;
+            localStorage.setItem("language", selectedLang); // 🌟 भाषा सेव करें
+            alert("Signup Successful! Language set to: " + selectedLang);
+            window.location.href = "webpage.html"; // 🔄 होम पेज पर भेजे
+        });
+    </script>
+</body>
+</html>
