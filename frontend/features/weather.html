@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Updates - Urava</title>
     <link rel="stylesheet" href="weather.css">
+    <script src="language.js"></script>
 </head>
 <body>
     <header>
-        <h1>Weather Updates</h1>
-        <p>Get real-time weather alerts for better farming decisions</p>
+        <h1 id="title">Weather Updates</h1>
+        <p id="desc">Get real-time weather alerts for better farming decisions</p>
+        <label for="language">🌏 Select Language:</label>
+        <select id="language">
+            <option value="english">English</option>
+            <option value="hindi">हिन्दी</option>
+        </select>
     </header>
 
     <section class="weather-section">
@@ -21,7 +27,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Urava. All Rights Reserved.</p>
+        <p id="footer-text">&copy; 2025 Urava. All Rights Reserved.</p>
     </footer>
 
     <script src="weather.js"></script>

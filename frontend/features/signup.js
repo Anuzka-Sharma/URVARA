@@ -1,74 +1,132 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const signupForm = document.getElementById("signupForm");
     const languageSelect = document.getElementById("language");
-    const signupForm = document.getElementById("signupForm");  // Signup form ko select kar rahe hain
 
-    // भाषा बदलने पर कंटेंट अपडेट करें
+    // ✅ Load saved language
+    const savedLang = localStorage.getItem("language") || "hindi";
+    languageSelect.value = savedLang;
+    applyLanguage(savedLang);
+
+    // ✅ Language Change Event
     languageSelect.addEventListener("change", function () {
-        if (languageSelect.value === "english") {
-            document.getElementById("title").textContent = "Sign Up";
-            document.getElementById("desc").textContent = "Please fill in your details below";
-            document.getElementById("nameLabel").textContent = "Full Name:";
-            document.getElementById("name").placeholder = "Enter your name";
-            document.getElementById("phoneLabel").textContent = "Mobile Number:";
-            document.getElementById("phone").placeholder = "Enter your mobile number";
-            document.getElementById("passwordLabel").textContent = "Password:";
-            document.getElementById("password").placeholder = "Choose a password";
-            document.getElementById("signup-btn").textContent = "Sign Up";
-            document.getElementById("login-text").innerHTML = "Already have an account? <a href='#'>Login</a>";
-        } else {
-            document.getElementById("title").textContent = "साइन अप";
-            document.getElementById("desc").textContent = "कृपया नीचे अपना विवरण भरें";
-            document.getElementById("nameLabel").textContent = "पूरा नाम:";
-            document.getElementById("name").placeholder = "अपना नाम दर्ज करें";
-            document.getElementById("phoneLabel").textContent = "मोबाइल नंबर:";
-            document.getElementById("phone").placeholder = "अपना मोबाइल नंबर दर्ज करें";
-            document.getElementById("passwordLabel").textContent = "पासवर्ड:";
-            document.getElementById("password").placeholder = "पासवर्ड चुनें";
-            document.getElementById("signup-btn").textContent = "साइन अप करें";
-            document.getElementById("login-text").innerHTML = "पहले से खाता है? <a href='#'>लॉगिन करें</a>";
-        }
+        const selectedLang = this.value;
+        localStorage.setItem("language", selectedLang);
+        applyLanguage(selectedLang);
     });
 
-    // Signup form submit event
-    signupForm.addEventListener('submit', async function (e) {
-        e.preventDefault(); // Prevent form from submitting normally
+    // ✅ Signup Form Submit Event
+    signupForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const password = document.getElementById("password").value;
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-        // Prepare data for API call
-        const data = {
-            username: name,
-            mobile: phone,
-            password: password
-        };
+        if (!name || !phone || !password) {
+            alert("❌ All fields are required!");
+            return;
+        }
 
         try {
-            // Send API request to the backend to store the user data
-            const response = await fetch('http://localhost:8080/auth/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
+            const response = await fetch("http://localhost:8080/auth/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: name, mobile: phone, password }),
             });
 
             const responseData = await response.json();
 
             if (response.ok) {
-                console.log("Signup successful", responseData);
-                // Redirect to login page after successful signup
-                window.location.href = "http://localhost:8080/auth/login"; // Redirect to login page after successful signup
-
+                alert("✅ Signup successful!");
+                window.location.href = "/auth/login"; // ✅ Redirect after success
             } else {
-                console.error("Error during signup", responseData.error);
-                // Show error message to user
-                alert("Signup failed: " + responseData.error);
+                alert(`❌ Signup failed: ${responseData.error || "Unknown error"}`);
             }
         } catch (error) {
-            console.error("Network error:", error);
-            alert("Network error. Please try again.");
+            alert("❌ Network error. Please try again.");
+            console.error("Network Error:", error);
         }
     });
 });
+
+// ✅ Language Change Function
+function applyLanguage(lang) {
+    const textContent = {
+        hindi: {
+            title: "साइन अप",
+            desc: "कृपया नीचे अपना विवरण भरें",
+            nameLabel: "पूरा नाम:",
+            phoneLabel: "मोबाइल नंबर:",
+            passwordLabel: "पासवर्ड:",
+            signupBtn: "साइन अप करें",
+            loginText: "पहले से खाता है? <a href='login.html'>लॉगिन करें</a>",
+        },
+        english: {
+            title: "Sign Up",
+            desc: "Please fill in your details below",
+            nameLabel: "Full Name:",
+            phoneLabel: "Mobile Number:",
+            passwordLabel: "Password:",
+            signupBtn: "Sign Up",
+            loginText: "Already have an account? <a href='login.html'>Login</a>",
+        },
+    };
+
+    document.getElementById("title").innerText = textContent[lang].title;
+    document.getElementById("desc").innerText = textContent[lang].desc;
+    document.getElementById("nameLabel").innerText = textContent[lang].nameLabel;
+    document.getElementById("phoneLabel").innerText = textContent[lang].phoneLabel;
+    document.getElementById("passwordLabel").innerText = textContent[lang].passwordLabel;
+    document.getElementById("signup-btn").innerText = textContent[lang].signupBtn;
+    document.getElementById("login-text").innerHTML = textContent[lang].loginText;
+}
+
+
+import { useState } from "react";
+import { signup } from "../services/authService";
+
+const Signup = () => {
+    const [user, setUser] = useState({ username: "", mobile: "", password: "" });
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
+
+    const handleChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!user.username || !user.mobile || !user.password) {
+            setError("❌ All fields are required!");
+            return;
+        }
+
+        try {
+            const res = await signup(user);
+            setMessage("✅ Signup successful!");
+            setError("");
+            setTimeout(() => {
+                window.location.href = "/auth/login"; // ✅ Redirect to login page
+            }, 2000);
+        } catch (error) {
+            setMessage("");
+            setError(`❌ Signup failed: ${error.error || "Unknown error"}`);
+        }
+    };
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="username" placeholder="Full Name" onChange={handleChange} required />
+                <input type="text" name="mobile" placeholder="Mobile Number" onChange={handleChange} required />
+                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                <button type="submit">Sign Up</button>
+            </form>
+            {message && <p style={{ color: "green" }}>{message}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+    );
+};
+
+export default Signup;

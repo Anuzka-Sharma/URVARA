@@ -1,59 +1,42 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const pool = require("../config/db");
 
 const router = express.Router();
 
-// ✅ Debugging Route
-router.get("/", (req, res) => {
-    res.json({ message: "✅ Auth API is working!" });
-});
-
-// 📝 SIGNUP API
 router.post("/signup", async (req, res) => {
     try {
-        console.log("Signup Request Received:", req.body);
+        console.log("📩 Signup Request Received:", req.body);
+        console.log("📌 Request Type:", typeof req.body); // Debugging
 
         const { username, password, mobile } = req.body;
+
+        // ✅ Validate input
         if (!username || !password || !mobile) {
+            console.error("❌ Missing fields in request:", { username, password, mobile });
             return res.status(400).json({ error: "Missing username, password, or mobile" });
         }
 
         // 🔒 Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const [result] = await pool.query(
-            "INSERT INTO users (username, password, mobile) VALUES (?, ?, ?)",
-            [username, hashedPassword, mobile]
-        );
+        // 🛠 Insert into database
+        const query = "INSERT INTO users (username, password, mobile) VALUES (?, ?, ?)";
 
+        // ⏳ Execute query
+        const [result] = await pool.query(query, [username, hashedPassword, mobile]);
+
+        console.log("✅ User Registered:", result);
         res.status(201).json({ message: "User registered successfully!", userId: result.insertId });
+
     } catch (err) {
-        console.error("Signup Error:", err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
+        console.error("❌ Signup Error:", err);
 
-// 📝 LOGIN API
-router.post("/login", async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const [rows] = await pool.query("SELECT * FROM users WHERE username = ?", [username]);
-
-        if (rows.length === 0) {
-            return res.status(401).json({ error: "Invalid username or password" });
+        // 🛑 Handle duplicate entry (MySQL error code: ER_DUP_ENTRY)
+        if (err.code === "ER_DUP_ENTRY") {
+            return res.status(409).json({ error: "Username or mobile already exists!" });
         }
 
-        const user = rows[0];
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (!passwordMatch) {
-            return res.status(401).json({ error: "Invalid username or password" });
-        }
-
-        res.json({ message: "Login successful!", userId: user.id });
-    } catch (error) {
-        console.error("❌ Login Error:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });

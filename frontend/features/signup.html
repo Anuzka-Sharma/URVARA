@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>साइन अप - उरावा</title>
     <link rel="stylesheet" href="signup.css">
 </head>
+
 <body>
 
     <div class="signup-container">
@@ -32,16 +34,88 @@
         <p id="login-text">पहले से खाता है? <a href="login.html">लॉगिन करें</a></p>
     </div>
 
-    <script src="signup.js"></script>
+    <script src="language.js"></script>
     <script>
-
-        // ✅ जब साइन अप बटन दबेगा, तो भाषा सेव होगी
-        document.getElementById("signup-btn").addEventListener("click", function() {
-            const selectedLang = document.getElementById("signup-language").value;
-            localStorage.setItem("language", selectedLang); // 🌟 भाषा सेव करें
-            alert("Signup Successful! Language set to: " + selectedLang);
-            window.location.href = "webpage.html"; // 🔄 होम पेज पर भेजे
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedLang = localStorage.getItem("language") || "hindi";
+            document.getElementById("signup-language").value = savedLang;
+            applyLanguage(savedLang);
         });
+
+        document.getElementById("signup-language").addEventListener("change", function () {
+            const selectedLang = this.value;
+            localStorage.setItem("language", selectedLang);
+            applyLanguage(selectedLang);
+        });
+
+        document.getElementById("signup-btn").addEventListener("click", async function () {
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!name || !phone || !password) {
+                alert("कृपया सभी फ़ील्ड भरें!");
+                return;
+            }
+
+            const userData = { name, phone, password };
+
+            try {
+                const response = await fetch("http://localhost:8080/auth/signup", {  // ✅ Backend API call
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert("साइनअप सफल! 🎉");
+                    window.location.href = "webpage.html";  // ✅ Redirect to home page
+                } else {
+                    alert("❌ साइनअप विफल: " + data.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("⚠️ कुछ गलत हो गया, कृपया पुनः प्रयास करें!");
+            }
+        });
+
+        function applyLanguage(lang) {
+            const textContent = {
+                hindi: {
+                    title: "साइन अप",
+                    desc: "कृपया नीचे अपना विवरण भरें",
+                    nameLabel: "पूरा नाम:",
+                    phoneLabel: "मोबाइल नंबर:",
+                    passwordLabel: "पासवर्ड:",
+                    langLabel: "🌏 भाषा चुनें:",
+                    signupBtn: "साइन अप करें",
+                    loginText: "पहले से खाता है? <a href='login.html'>लॉगिन करें</a>",
+                },
+                english: {
+                    title: "Sign Up",
+                    desc: "Please fill in your details below",
+                    nameLabel: "Full Name:",
+                    phoneLabel: "Mobile Number:",
+                    passwordLabel: "Password:",
+                    langLabel: "🌏 Select Language:",
+                    signupBtn: "Sign Up",
+                    loginText: "Already have an account? <a href='login.html'>Login</a>",
+                }
+            };
+
+            document.getElementById("title").innerText = textContent[lang].title;
+            document.getElementById("desc").innerText = textContent[lang].desc;
+            document.getElementById("nameLabel").innerText = textContent[lang].nameLabel;
+            document.getElementById("phoneLabel").innerText = textContent[lang].phoneLabel;
+            document.getElementById("passwordLabel").innerText = textContent[lang].passwordLabel;
+            document.getElementById("langLabel").innerText = textContent[lang].langLabel;
+            document.getElementById("signup-btn").innerText = textContent[lang].signupBtn;
+            document.getElementById("login-text").innerHTML = textContent[lang].loginText;
+        }
     </script>
+
 </body>
+
 </html>
