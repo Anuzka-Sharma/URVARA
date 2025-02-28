@@ -65,7 +65,16 @@ router.post("/login", async (req, res) => {
             return res.status(401).json({ error: "❌ पासवर्ड गलत है!" });
         }
 
-        const token = jwt.sign({ id: user.id, mobile: user.mobile }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        if (!process.env.JWT_SECRET) {
+            console.error("❌ JWT_SECRET is not defined in .env file!");
+            return res.status(500).json({ error: "❌ सर्वर त्रुटि! (JWT Secret Missing)" });
+        }
+
+        const token = jwt.sign(
+            { id: user.id, mobile: user.mobile }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: "1h" }
+        );
 
         return res.json({ message: "✅ लॉगिन सफल!", token });
     } catch (error) {
@@ -73,6 +82,5 @@ router.post("/login", async (req, res) => {
         return res.status(500).json({ error: "❌ सर्वर त्रुटि!" });
     }
 });
-
 
 module.exports = router;
