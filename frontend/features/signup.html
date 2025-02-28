@@ -14,22 +14,24 @@
         <h1 id="title">साइन अप</h1>
         <p id="desc">कृपया नीचे अपना विवरण भरें</p>
 
-        <label for="name" id="nameLabel">पूरा नाम:</label>
-        <input type="text" id="name" placeholder="अपना नाम दर्ज करें">
+        <form id="signupForm">
+            <label for="name" id="nameLabel">पूरा नाम:</label>
+            <input type="text" id="name" placeholder="अपना नाम दर्ज करें">
 
-        <label for="phone" id="phoneLabel">मोबाइल नंबर:</label>
-        <input type="tel" id="phone" placeholder="अपना मोबाइल नंबर दर्ज करें">
+            <label for="phone" id="phoneLabel">मोबाइल नंबर:</label>
+            <input type="tel" id="phone" placeholder="अपना मोबाइल नंबर दर्ज करें">
 
-        <label for="password" id="passwordLabel">पासवर्ड:</label>
-        <input type="password" id="password" placeholder="पासवर्ड चुनें">
+            <label for="password" id="passwordLabel">पासवर्ड:</label>
+            <input type="password" id="password" placeholder="पासवर्ड चुनें">
 
-        <label for="signup-language" id="langLabel">🌏 भाषा चुनें:</label>
-        <select id="signup-language">
-            <option value="hindi">हिन्दी</option>
-            <option value="english">English</option>
-        </select>
+            <label for="signup-language" id="langLabel">🌏 भाषा चुनें:</label>
+            <select id="signup-language">
+                <option value="hindi">हिन्दी</option>
+                <option value="english">English</option>
+            </select>
 
-        <button id="signup-btn">साइन अप करें</button>
+            <button type="submit" id="signup-btn">साइन अप करें</button>
+        </form>
 
         <p id="login-text">पहले से खाता है? <a href="login.html">लॉगिन करें</a></p>
     </div>
@@ -48,7 +50,9 @@
             applyLanguage(selectedLang);
         });
 
-        document.getElementById("signup-btn").addEventListener("click", async function () {
+        document.getElementById("signupForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
             const name = document.getElementById("name").value.trim();
             const phone = document.getElementById("phone").value.trim();
             const password = document.getElementById("password").value.trim();
@@ -61,7 +65,7 @@
             const userData = { name, phone, password };
 
             try {
-                const response = await fetch("http://localhost:8080/auth/signup", {  // ✅ Backend API call
+                const response = await fetch("http://localhost:8080/auth/signup", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(userData),
@@ -71,7 +75,7 @@
 
                 if (data.success) {
                     alert("साइनअप सफल! 🎉");
-                    window.location.href = "webpage.html";  // ✅ Redirect to home page
+                    window.location.href = "webpage.html";
                 } else {
                     alert("❌ साइनअप विफल: " + data.message);
                 }

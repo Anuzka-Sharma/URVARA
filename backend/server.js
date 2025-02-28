@@ -17,18 +17,23 @@ app.use(express.static(path.join(__dirname, "frontend")));
 
 app.use("/auth", authRoutes); // 🛠 Use the Auth Route
 
-// Signup Route
+// Signup Route ✅ Fixed Duplicate Variable Issue
 app.post("/auth/signup", (req, res) => {
     console.log("📩 Signup Request Received:", req.body);  // Debug request data
     console.log("📌 Request Type:", typeof req.body);  // Ensure it's an object
+   // Ensure correct field names
+   const username = req.body.name;  // 🔥 FIX: "username" ki jagah "name" use kiya
+   const mobile = req.body.phone;   // 🔥 FIX: "mobile" ki jagah "phone" use kiya
+   const password = req.body.password;
 
-    const { username, mobile, password } = req.body;
+   // Debugging: Check received values
+   console.log("🧐 Extracted Values ->", { username, mobile, password });
 
     if (!username || !mobile || !password) {
-        return res.status(400).json({ error: "Missing required fields" });
+        return res.status(400).json({ error: "❌ Missing required fields!" });
     }
 
-    res.json({ message: "Signup successful!" });
+    res.json({ message: "🎉 Signup successful!" });
 });
 
 // API Route to Check Server
