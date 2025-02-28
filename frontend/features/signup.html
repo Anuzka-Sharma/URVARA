@@ -32,16 +32,62 @@
         <p id="login-text">पहले से खाता है? <a href="login.html">लॉगिन करें</a></p>
     </div>
 
-    <script src="signup.js"></script>
+    <script src="language.js"></script> 
     <script>
-
-        // ✅ जब साइन अप बटन दबेगा, तो भाषा सेव होगी
-        document.getElementById("signup-btn").addEventListener("click", function() {
-            const selectedLang = document.getElementById("signup-language").value;
-            localStorage.setItem("language", selectedLang); // 🌟 भाषा सेव करें
-            alert("Signup Successful! Language set to: " + selectedLang);
-            window.location.href = "webpage.html"; // 🔄 होम पेज पर भेजे
+        // पहले से सेव की हुई भाषा लोड करें
+        document.addEventListener("DOMContentLoaded", function() {
+            const savedLang = localStorage.getItem("language") || "hindi";
+            document.getElementById("signup-language").value = savedLang;
+            applyLanguage(savedLang);
         });
+
+        // जब भाषा बदली जाए तो उसे सेव करें
+        document.getElementById("signup-language").addEventListener("change", function() {
+            const selectedLang = this.value;
+            localStorage.setItem("language", selectedLang);
+            applyLanguage(selectedLang);
+        });
+
+        // साइन अप बटन पर क्लिक होने पर भाषा सेव करें और आगे भेजें
+        document.getElementById("signup-btn").addEventListener("click", function() {
+            alert("Signup Successful! Language set to: " + localStorage.getItem("language"));
+            window.location.href = "webpage.html"; // 🔄 Home page pe redirect karega
+        });
+
+        // भाषा बदलने वाला फंक्शन
+        function applyLanguage(lang) {
+            const textContent = {
+                hindi: {
+                    title: "साइन अप",
+                    desc: "कृपया नीचे अपना विवरण भरें",
+                    nameLabel: "पूरा नाम:",
+                    phoneLabel: "मोबाइल नंबर:",
+                    passwordLabel: "पासवर्ड:",
+                    langLabel: "🌏 भाषा चुनें:",
+                    signupBtn: "साइन अप करें",
+                    loginText: "पहले से खाता है? <a href='login.html'>लॉगिन करें</a>",
+                },
+                english: {
+                    title: "Sign Up",
+                    desc: "Please fill in your details below",
+                    nameLabel: "Full Name:",
+                    phoneLabel: "Mobile Number:",
+                    passwordLabel: "Password:",
+                    langLabel: "🌏 Select Language:",
+                    signupBtn: "Sign Up",
+                    loginText: "Already have an account? <a href='login.html'>Login</a>",
+                }
+            };
+
+            document.getElementById("title").innerText = textContent[lang].title;
+            document.getElementById("desc").innerText = textContent[lang].desc;
+            document.getElementById("nameLabel").innerText = textContent[lang].nameLabel;
+            document.getElementById("phoneLabel").innerText = textContent[lang].phoneLabel;
+            document.getElementById("passwordLabel").innerText = textContent[lang].passwordLabel;
+            document.getElementById("langLabel").innerText = textContent[lang].langLabel;
+            document.getElementById("signup-btn").innerText = textContent[lang].signupBtn;
+            document.getElementById("login-text").innerHTML = textContent[lang].loginText;
+        }
     </script>
 </body>
 </html>

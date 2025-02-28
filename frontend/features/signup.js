@@ -1,32 +1,50 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const languageSelect = document.getElementById("language");
+document.addEventListener("DOMContentLoaded", function () {
+    const langSelect = document.getElementById("signup-language");
 
-    // भाषा बदलने पर कंटेंट अपडेट करें
-    languageSelect.addEventListener("change", function() {
-        if (languageSelect.value === "english") {
-            document.getElementById("title").textContent = "Sign Up";
-            document.getElementById("desc").textContent = "Please fill in your details below";
-            document.getElementById("nameLabel").textContent = "Full Name:";
-            document.getElementById("name").placeholder = "Enter your name";
-            document.getElementById("phoneLabel").textContent = "Mobile Number:";
-            document.getElementById("phone").placeholder = "Enter your mobile number";
-            document.getElementById("passwordLabel").textContent = "Password:";
-            document.getElementById("password").placeholder = "Choose a password";
-            document.getElementById("signup-btn").textContent = "Sign Up";
-            document.getElementById("login-text").innerHTML = "Already have an account? <a href='#'>Login</a>";
-        } else {
-            document.getElementById("title").textContent = "साइन अप";
-            document.getElementById("desc").textContent = "कृपया नीचे अपना विवरण भरें";
-            document.getElementById("nameLabel").textContent = "पूरा नाम:";
-            document.getElementById("name").placeholder = "अपना नाम दर्ज करें";
-            document.getElementById("phoneLabel").textContent = "मोबाइल नंबर:";
-            document.getElementById("phone").placeholder = "अपना मोबाइल नंबर दर्ज करें";
-            document.getElementById("passwordLabel").textContent = "पासवर्ड:";
-            document.getElementById("password").placeholder = "पासवर्ड चुनें";
-            document.getElementById("signup-btn").textContent = "साइन अप करें";
-            document.getElementById("login-text").innerHTML = "पहले से खाता है? <a href='#'>लॉगिन करें</a>";
-        }
+    // ✅ Pehle se saved language load karo
+    const savedLang = localStorage.getItem("language") || "hindi";
+    langSelect.value = savedLang;
+    applyLanguage(savedLang);
+
+    // ✅ Jab language change ho, to usse save karo
+    langSelect.addEventListener("change", function () {
+        const selectedLang = this.value;
+        localStorage.setItem("language", selectedLang);
+        applyLanguage(selectedLang);
     });
-    window.location.href = "http://127.0.0.1:5500/features/login.html";
-
 });
+
+// ✅ Language change karne wala function
+function applyLanguage(lang) {
+    const textContent = {
+        hindi: {
+            title: "साइन अप",
+            desc: "कृपया नीचे अपना विवरण भरें",
+            nameLabel: "पूरा नाम:",
+            phoneLabel: "मोबाइल नंबर:",
+            passwordLabel: "पासवर्ड:",
+            langLabel: "🌏 भाषा चुनें:",
+            signupBtn: "साइन अप करें",
+            loginText: "पहले से खाता है? <a href='login.html'>लॉगिन करें</a>",
+        },
+        english: {
+            title: "Sign Up",
+            desc: "Please fill in your details below",
+            nameLabel: "Full Name:",
+            phoneLabel: "Mobile Number:",
+            passwordLabel: "Password:",
+            langLabel: "🌏 Select Language:",
+            signupBtn: "Sign Up",
+            loginText: "Already have an account? <a href='login.html'>Login</a>",
+        }
+    };
+
+    document.getElementById("title").innerText = textContent[lang].title;
+    document.getElementById("desc").innerText = textContent[lang].desc;
+    document.getElementById("nameLabel").innerText = textContent[lang].nameLabel;
+    document.getElementById("phoneLabel").innerText = textContent[lang].phoneLabel;
+    document.getElementById("passwordLabel").innerText = textContent[lang].passwordLabel;
+    document.getElementById("langLabel").innerText = textContent[lang].langLabel;
+    document.getElementById("signup-btn").innerText = textContent[lang].signupBtn;
+    document.getElementById("login-text").innerHTML = textContent[lang].loginText;
+}
