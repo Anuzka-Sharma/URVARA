@@ -47,7 +47,7 @@ async function loginUser() {
         if (response.ok) {
             alert("🎉 लॉगिन सफल!");
             localStorage.setItem("token", result.token); // Token Store
-            window.location.href = "dashboard.html"; // Redirect to dashboard
+            window.location.href = "http://127.0.0.1:5500/frontend/features/webpage.html";; // Redirect to dashboard
         } else {
             alert("❌ लॉगिन विफल: " + result.error);
         }

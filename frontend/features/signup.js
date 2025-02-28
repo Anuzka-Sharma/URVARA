@@ -28,17 +28,16 @@ const Signup = () => {
 
             if (response.ok) {
                 setMessage("✅ साइनअप सफल! 🎉");
-                window.location.href = "http://127.0.0.1:5500/frontend/webpage.html";
-                setError("");
+                setError(""); // ❌ Error clear karna
 
                 // ✅ Redirect to next page (change 'webpage.html' to actual file)
-
-                window.location.href = "http://127.0.0.1:5500/frontend/webpage.html"; // 🔥 Change this to your actual next page
+                window.location.href = "http://127.0.0.1:5500/frontend/features/webpage.html";
 
             } else {
                 setMessage("");
-                setError(❌ साइनअप विफल: ${ data.message || "अज्ञात त्रुटि" });
+                setError(`❌ साइनअप विफल: ${data.message || "अज्ञात त्रुटि"}`); // 🔥 Template literal ka error fix
             }
+
         } catch (error) {
             setMessage("");
             setError("❌ नेटवर्क समस्या! कृपया पुनः प्रयास करें।");
@@ -71,16 +70,14 @@ const Signup = () => {
                     required
                 />
                 <button type="submit">साइन अप करें</button>
-<<<<<<< HEAD
-        
-        window.location.href = "login.html"; 
-=======
->>>>>>> 15f6ffeac4749afff13127133bb1b7bff9c5bf63
-            </form>
 
-            {message && <p style={{ color: "green" }}>{message}</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-        </div>
+
+
+            </form >
+
+    { message && <p style={{ color: "green" }}>{message}</p>}
+{ error && <p style={{ color: "red" }}>{error}</p> }
+        </div >
     );
 };
 
