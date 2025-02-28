@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("login-btn").addEventListener("click", loginUser);
 });
 
+
+
+
 async function loginUser() {
     const mobile = document.getElementById("phone").value.trim();
     const password = document.getElementById("password").value.trim();
