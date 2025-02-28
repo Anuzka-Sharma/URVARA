@@ -1,53 +1,55 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const languageSelect = document.getElementById("language");
 
-    // पहले से सेलेक्ट की गई भाषा सेट करें
-    const savedLang = localStorage.getItem("language") || "hindi";
-    languageSelect.value = savedLang;
-    changeLanguage(savedLang);
+    if (languageSelect) {
+        // पहले से सेलेक्ट की गई भाषा सेट करें
+        const savedLang = localStorage.getItem("language") || "hindi";
+        languageSelect.value = savedLang;
+        changeLanguage(savedLang);
 
-    // जब भाषा बदली जाए
-    languageSelect.addEventListener("change", function() {
-        const selectedLang = languageSelect.value;
-        localStorage.setItem("language", selectedLang); // लोकल स्टोरेज में सेव करें
-        changeLanguage(selectedLang);
-    });
-    window.location.href ='http://127.0.0.1:5500/webpage.html';
+        // जब भाषा बदली जाए
+        languageSelect.addEventListener("change", function () {
+            const selectedLang = languageSelect.value;
+            localStorage.setItem("language", selectedLang); // लोकल स्टोरेज में सेव करें
+            changeLanguage(selectedLang);
+        });
+    }
+
+    document.getElementById("login-btn").addEventListener("click", loginUser);
 });
 
+async function loginUser() {
+    const mobile = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-import { useState } from "react";
-import { login } from "../services/authService";
+    if (!mobile || !password) {
+        alert("❌ कृपया सभी फ़ील्ड भरें!");
+        return;
+    }
 
-const Login = () => {
-    const [user, setUser] = useState({ mobile: "", password: "" });
-    const [message, setMessage] = useState("");
+    const userData = { mobile, password };
 
-    const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    };
+    console.log("📤 Sending login request:", userData);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await login(user);
-            setMessage("Login successful! Token: " + res.token);
-            localStorage.setItem("token", res.token);  // Token store karna
-        } catch (error) {
-            setMessage(error.error);
+    try {
+        const response = await fetch("http://localhost:8080/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
+        });
+
+        const result = await response.json();
+        console.log("✅ Server Response:", result);
+
+        if (response.ok) {
+            alert("🎉 लॉगिन सफल!");
+            localStorage.setItem("token", result.token); // Token Store
+            window.location.href = "dashboard.html"; // Redirect to dashboard
+        } else {
+            alert("❌ लॉगिन विफल: " + result.error);
         }
-    };
-
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="mobile" placeholder="Mobile Number" onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                <button type="submit">Login</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
-    );
-};
-
-export default Login;
+    } catch (error) {
+        console.error("❌ Fetch error:", error);
+        alert("❌ सर्वर से कनेक्ट नहीं हो सका!");
+    }
+}

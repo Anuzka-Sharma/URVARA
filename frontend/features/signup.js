@@ -68,6 +68,10 @@ const Signup = () => {
                     required
                 />
                 <button type="submit">साइन अप करें</button>
+                function saveUserAndRedirect() {
+        const username = document.getElementById("username").value;
+        localStorage.setItem("username", username);  // Store username
+        window.location.href = "login.html"; 
             </form>
             {message && <p style={{ color: "green" }}>{message}</p>}
             {error && <p style={{ color: "red" }}>{error}</p>}

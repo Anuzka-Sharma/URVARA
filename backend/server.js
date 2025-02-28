@@ -42,6 +42,9 @@ app.post("/auth/signup", (req, res) => {
     res.json({ message: "🎉 Signup successful!" });
 });
 
+
+
+
 // API Route to Check Server
 app.get("/", (req, res) => {
     res.send("🚀 Server is running!");
