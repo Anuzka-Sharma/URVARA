@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const languageSelect = document.getElementById("language");
+    const signupForm = document.getElementById("signupForm");  // Signup form ko select kar rahe hain
 
     // भाषा बदलने पर कंटेंट अपडेट करें
-    languageSelect.addEventListener("change", function() {
+    languageSelect.addEventListener("change", function () {
         if (languageSelect.value === "english") {
             document.getElementById("title").textContent = "Sign Up";
             document.getElementById("desc").textContent = "Please fill in your details below";
@@ -27,6 +28,47 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("login-text").innerHTML = "पहले से खाता है? <a href='#'>लॉगिन करें</a>";
         }
     });
-    window.location.href = "http://127.0.0.1:5500/features/login.html";
 
+    // Signup form submit event
+    signupForm.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent form from submitting normally
+
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const password = document.getElementById("password").value;
+
+        // Prepare data for API call
+        const data = {
+            username: name,
+            mobile: phone,
+            password: password
+        };
+
+        try {
+            // Send API request to the backend to store the user data
+            const response = await fetch('http://localhost:8080/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+                console.log("Signup successful", responseData);
+                // Redirect to login page after successful signup
+                window.location.href = "http://localhost:8080/auth/login"; // Redirect to login page after successful signup
+
+            } else {
+                console.error("Error during signup", responseData.error);
+                // Show error message to user
+                alert("Signup failed: " + responseData.error);
+            }
+        } catch (error) {
+            console.error("Network error:", error);
+            alert("Network error. Please try again.");
+        }
+    });
 });
