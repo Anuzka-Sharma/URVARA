@@ -6,7 +6,7 @@ const Signup = () => {
     const [error, setError] = useState("");
 
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setUser({ ...user, [e.target.username]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
