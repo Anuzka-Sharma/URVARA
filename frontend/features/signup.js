@@ -28,6 +28,7 @@ const Signup = () => {
 
             if (response.ok) {
                 setMessage("✅ साइनअप सफल! 🎉");
+                window.location.href = "http://127.0.0.1:5500/frontend/webpage.html";
                 setError("");
                 setTimeout(() => {
                     window.location.href = "/auth/login";
@@ -68,9 +69,7 @@ const Signup = () => {
                     required
                 />
                 <button type="submit">साइन अप करें</button>
-                function saveUserAndRedirect() {
-        const username = document.getElementById("username").value;
-        localStorage.setItem("username", username);  // Store username
+        
         window.location.href = "login.html"; 
             </form>
             {message && <p style={{ color: "green" }}>{message}</p>}
