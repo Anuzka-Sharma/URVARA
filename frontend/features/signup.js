@@ -6,7 +6,7 @@ const Signup = () => {
     const [error, setError] = useState("");
 
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        setUser({ ...user, [e.target.username]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -34,7 +34,7 @@ const Signup = () => {
                 }, 2000);
             } else {
                 setMessage("");
-                setError(`❌ साइनअप विफल: ${data.message || "अज्ञात त्रुटि"}`);
+                setError(❌ साइनअप विफल: ${data.message || "अज्ञात त्रुटि"});
             }
         } catch (error) {
             setMessage("");
@@ -68,6 +68,10 @@ const Signup = () => {
                     required
                 />
                 <button type="submit">साइन अप करें</button>
+                function saveUserAndRedirect() {
+        const username = document.getElementById("username").value;
+        localStorage.setItem("username", username);  // Store username
+        window.location.href = "login.html"; 
             </form>
             {message && <p style={{ color: "green" }}>{message}</p>}
             {error && <p style={{ color: "red" }}>{error}</p>}
