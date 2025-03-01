@@ -9,7 +9,7 @@
 }
 
 h1 {
-    color: #4CAF50;
+    color: #2c7d2e;
 }
 
 label {
@@ -27,7 +27,7 @@ input {
 }
 
 button {
-    background: #4CAF50;
+    background: #2c7d2e;
     color: white;
     border: none;
     padding: 10px;
@@ -42,7 +42,7 @@ button:hover {
 }
 
 a {
-    color: #4CAF50;
+    color: #2c7d2e;
     text-decoration: none;
 }
 

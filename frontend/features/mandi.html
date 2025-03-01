@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mandi Prices - Urava</title>
+    <title>Mandi Prices - Urvara</title>
     <link rel="stylesheet" href="mandi.css">
 </head>
 <body>
 
     <header>
         <h1>Mandi Prices</h1>
+        <br>
         <p>Check the latest market rates for your crops</p>
     </header>
 
@@ -22,44 +23,29 @@
             <table id="mandiTable">
                 <thead>
                     <tr>
-                        <th>Crop</th>
-                        <th>Market</th>
-                        <th>Price (₹ per Quintal)</th>
+                        <th onclick="sortTable(0)">Crop ⬍</th>
+                        <th onclick="sortTable(1)">Market ⬍</th>
+                        <th onclick="sortTable(2)">Price (₹ per Quintal) ⬍</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Wheat</td>
-                        <td>Jaipur</td>
-                        <td>₹ 2500</td>
-                    </tr>
-                    <tr>
-                        <td>Rice</td>
-                        <td>Delhi</td>
-                        <td>₹ 3200</td>
-                    </tr>
-                    <tr>
-                        <td>Pulses</td>
-                        <td>Kota</td>
-                        <td>₹ 5000</td>
-                    </tr>
-                    <tr>
-                        <td>Sugarcane</td>
-                        <td>Agra</td>
-                        <td>₹ 450</td>
-                    </tr>
-                    <tr>
-                        <td>Maize</td>
-                        <td>Indore</td>
-                        <td>₹ 2100</td>
-                    </tr>
+                    <tr><td>Wheat</td> <td>Jaipur</td> <td>₹ 2500</td></tr>
+                    <tr><td>Rice</td> <td>Delhi</td> <td>₹ 3200</td></tr>
+                    <tr><td>Pulses</td> <td>Kota</td> <td>₹ 5000</td></tr>
+                    <tr><td>Sugarcane</td> <td>Agra</td> <td>₹ 450</td></tr>
+                    <tr><td>Maize</td> <td>Indore</td> <td>₹ 2100</td></tr>
+                    <tr><td>Barley</td> <td>Lucknow</td> <td>₹ 2000</td></tr>
+                    <tr><td>Cotton</td> <td>Ahmedabad</td> <td>₹ 5500</td></tr>
+                    <tr><td>Soybean</td> <td>Indore</td> <td>₹ 4800</td></tr>
+                    <tr><td>Mustard</td> <td>Bikaner</td> <td>₹ 5300</td></tr>
+                    <tr><td>Groundnut</td> <td>Rajkot</td> <td>₹ 4200</td></tr>
                 </tbody>
             </table>
         </div>
     </main>
 
     <footer>
-        © 2025 Urava. All Rights Reserved.
+        © 2025 Urvara. All Rights Reserved.
     </footer>
 
     <script src="mandi.js"></script>
