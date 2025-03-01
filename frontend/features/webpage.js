@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.style.cursor = "pointer";
             card.addEventListener("click", function () {
                 console.log("Redirecting to Mandi Prices Page...");
-                window.location.href = "http://127.0.0.1:5500/frontend/features/mandi.html";
+                window.location.href = "http://127.0.0.1:5501/frontend/features/mandi.html";
             });
         }
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.style.cursor = "pointer";
             card.addEventListener("click", function () {
                 console.log("Redirecting to Weather Page...");
-                window.location.href = "http://127.0.0.1:5500/frontend/features/weather.html";
+                window.location.href = "http://127.0.0.1:5501/frontend/features/weather.html";
             });
         }
 
@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
             card.style.cursor = "pointer";
             card.addEventListener("click", function () {
                 console.log("Redirecting to Video Shorts Page...");
-                window.location.href = "http://127.0.0.1:5500/frontend/features/community.html"; // ✅ Change the correct file name if needed
+                window.location.href = "http://127.0.0.1:5501/frontend/features/community.html"; // ✅ Change the correct file name if needed
             });
         }
         if (title.includes("Government Schemes")) {
             card.style.cursor = "pointer";
             card.addEventListener("click", function () {
                 console.log("Redirecting to Government Schemes Page...");
-                window.location.href = "http://127.0.0.1:5500/frontend/features/schemes.html";  // ✅ Govt Schemes Page
+                window.location.href = "http://127.0.0.1:5501/frontend/features/schemes.html";  // ✅ Govt Schemes Page
             });
         }
 

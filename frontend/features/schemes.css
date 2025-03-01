@@ -7,9 +7,9 @@ body {
 }
 
 header {
-    background: #28a745;
+    background: #2c7d2e;
     color: white;
-    padding: 20px;
+    padding: 40px;
 }
 
 .search-section {
@@ -30,7 +30,7 @@ input {
 }
 
 button {
-    background: #28a745;
+    background: #2c7d2e;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -75,7 +75,7 @@ button:hover {
 }
 
 footer {
-    background: #28a745;
+    background: #2c7d2e;
     color: white;
     padding: 10px;
     position: relative;

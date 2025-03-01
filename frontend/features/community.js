@@ -1,38 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const languageSelect = document.getElementById("language");
+document.getElementById("videoInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const videoPreview = document.getElementById("videoPreview");
+        const postButton = document.getElementById("postButton");
 
-    // ✅ पहले से सेव भाषा अप्लाई करें
-    const savedLang = localStorage.getItem("language") || "hindi";
-    languageSelect.value = savedLang;
-    changeLanguage(savedLang);
-
-    // ✅ जब हेडर में भाषा बदले, तो सेव करें
-    languageSelect.addEventListener("change", function() {
-        const selectedLang = languageSelect.value;
-        localStorage.setItem("language", selectedLang);
-        changeLanguage(selectedLang);
-    });
-    const chatContainer = document.getElementById("chatContainer");
-    const messageInput = document.getElementById("messageInput");
-    const sendMessageBtn = document.getElementById("sendMessageBtn");
-
-    function addMessage(text, isUser = true) {
-        let messageElement = document.createElement("div");
-        messageElement.classList.add("message");
-        messageElement.classList.add(isUser ? "user-message" : "other-message");
-        messageElement.textContent = text;
-        chatContainer.appendChild(messageElement);
-        chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+        videoPreview.src = URL.createObjectURL(file);
+        videoPreview.style.display = "block"; // Show video preview
+        postButton.style.display = "block"; // Show "Post" button
     }
+});
 
-    sendMessageBtn.addEventListener("click", function() {
-        let message = messageInput.value.trim();
-        if (message === "") return;
-        addMessage(message, true);
-        messageInput.value = "";
-    });
-
-    // Dummy messages to simulate a community chat
-    addMessage("🌱 Ramesh: Best season to grow wheat?", false);
-    addMessage("🚜 Suresh: Try sowing in November for best yield!", false);
+document.getElementById("postButton").addEventListener("click", function() {
+    alert("Your video is being uploaded! 🚀");
+    // Yahan actual video upload function add karna hoga (Backend ke saath)
 });
