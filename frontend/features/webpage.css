@@ -1,72 +1,153 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    text-align: center;
     background-color: #f4f4f4;
 }
 
-header {
-    background: #28a745;
-    color: white;
-    padding: 20px;
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.hero {
-    background: #fff;
-    padding: 50px 20px;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c7d2e;
 }
 
-button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
     font-size: 16px;
+}
+
+.cta {
+    background-color: #2c7d2e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
 }
 
-button:hover {
-    background: #218838;
-}
-
-.features {
+/* Hero Section (Optimized Image & Text Visibility) */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Image height ko thoda chhota kiya */
     display: flex;
-    justify-content: center;  /* Center align karega */
-    gap: 30px;  /* Boxes ke beech gap badhane ke liye */
-    flex-wrap: wrap; /* Small screens ke liye wrapping allow karega */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
 }
 
-.feature {
+/* Image ko chhota aur centered fit kiya */
+.hero img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Proper cropping */
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.9; /* Image ko halka light kiya */
+}
+
+/* Hero Text (Image ke aage laaya) */
+.hero-text {
+    position: relative;
+    z-index: 2;
+    max-width: 60%;
+    background: rgba(0, 0, 0, 0.5); /* Black semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+/* Call-To-Action Button */
+.explore-btn {
+    background-color: #ffcc29;
+    color: black;
+    padding: 12px 24px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background 0.3s ease-in-out;
+}
+
+.explore-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Features Section */
+.features {
+    text-align: center;
+    padding: 50px;
+    background-color: white;
+}
+
+.feature-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.feature-card {
     background: white;
     padding: 20px;
-    margin: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 15%;  /* Sabhi boxes ek hi size ke rahenge */
+    width: 250px;
     text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 }
 
-@media (max-width: 992px) {
-    .feature {
-        width: 45%; /* Medium screens ke liye do column */
-    }
+.feature-card img {
+    width: 60px;
+    margin-bottom: 10px;
 }
 
-@media (max-width: 600px) {
-    .feature {
-        width: 100%; /* Chhoti screens ke liye ek column */
-    }
+.feature-card:hover {
+    transform: scale(1.05);
 }
 
-
-
+/* Footer */
 footer {
-    background: #28a745;
+    background-color: #2c7d2e;
     color: white;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
 }
