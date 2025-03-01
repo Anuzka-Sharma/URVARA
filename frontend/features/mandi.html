@@ -5,31 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mandi Prices - Urava</title>
     <link rel="stylesheet" href="mandi.css">
-    <script src="language.js"></script>
 </head>
 <body>
+
     <header>
         <h1>Mandi Prices</h1>
         <p>Check the latest market rates for your crops</p>
     </header>
 
-    <section class="price-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Crop</th>
-                    <th>Market</th>
-                    <th>Price (₹ per Quintal)</th>
-                </tr>
-            </thead>
-            <tbody id="priceData">
-                <tr><td colspan="3">Loading data...</td></tr>
-            </tbody>
-        </table>
-    </section>
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search Crop..." onkeyup="searchTable()">
+        </div>
+
+        <div class="table-container">
+            <table id="mandiTable">
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Market</th>
+                        <th>Price (₹ per Quintal)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Wheat</td>
+                        <td>Jaipur</td>
+                        <td>₹ 2500</td>
+                    </tr>
+                    <tr>
+                        <td>Rice</td>
+                        <td>Delhi</td>
+                        <td>₹ 3200</td>
+                    </tr>
+                    <tr>
+                        <td>Pulses</td>
+                        <td>Kota</td>
+                        <td>₹ 5000</td>
+                    </tr>
+                    <tr>
+                        <td>Sugarcane</td>
+                        <td>Agra</td>
+                        <td>₹ 450</td>
+                    </tr>
+                    <tr>
+                        <td>Maize</td>
+                        <td>Indore</td>
+                        <td>₹ 2100</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Urava. All Rights Reserved.</p>
+        © 2025 Urava. All Rights Reserved.
     </footer>
 
     <script src="mandi.js"></script>

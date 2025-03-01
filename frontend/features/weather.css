@@ -1,117 +1,60 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f2f2f2;
     text-align: center;
-    background-color: #f9f9f9; /* Lighter background */
-    color: #333; /* Darker text for better contrast */
-    line-height: 1.6; /* Improved readability */
 }
 
 header {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32); /* Gradient background */
+    background-color: #228B22;
     color: white;
-    padding: 30px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 15px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em; /* Larger header */
-    letter-spacing: 1px; /* Spacing for readability */
+main {
+    padding: 20px;
 }
 
-.hero {
-    background: white;
-    padding: 80px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-    margin: 30px auto;
-    max-width: 800px; /* Limit width for better readability */
+.search-container {
+    margin-bottom: 15px;
 }
 
-.hero h2 {
-    font-size: 2.2em;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.1em;
-    color: #555;
-    margin-bottom: 30px;
+input[type="text"] {
+    width: 50%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #228B22;
+    border-radius: 5px;
 }
 
 button {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #228B22;
     color: white;
     border: none;
-    padding: 12px 25px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 25px; /* Rounded buttons */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions */
 }
 
-button:hover {
-    transform: translateY(-3px); /* Slight lift on hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-}
-
-.features {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 50px 20px;
-}
-
-.feature {
+.weather-container {
     background: white;
-    padding: 30px;
-    margin: 10px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 20%; /* Adjusted width */
-    text-align: center;
-    transition: transform 0.3s ease-in-out; /* Smooth transitions */
-}
-
-.feature:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-}
-
-.feature h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    color: #2E7D32; /* Green accent */
-}
-
-.feature p {
-    color: #666;
-}
-
-@media (max-width: 992px) {
-    .feature {
-        width: 45%;
-    }
-}
-
-@media (max-width: 600px) {
-    .feature {
-        width: 100%;
-    }
+    padding: 15px;
+    border-radius: 8px;
+    width: 60%;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: none;
 }
 
 footer {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    background-color: #228B22;
     color: white;
-    padding: 20px;
-    position: relative;
-    width: 100%;
-    margin-top: 50px; /* Add some space above footer */
-}
-
-footer p {
-    margin: 0;
+    padding: 10px;
+    margin-top: 20px;
 }

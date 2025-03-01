@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Updates</title>
+    <title>Weather - Urvara</title>
     <link rel="stylesheet" href="weather.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>The Only Weather Forecast You Need</h1>
-        <div class="search-box">
-            <input type="text" id="locationInput" placeholder="Enter location">
-            <button onclick="getWeather()">🔍</button>
+    <header>
+        <h1>Weather Updates</h1>
+        <p>Check the latest weather conditions for your city</p>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="cityInput" placeholder="Enter City Name...">
+            <button onclick="getWeather()">Search</button>
         </div>
-        <div class="weather-card" id="weatherCard">
-            <h2>--°</h2>
-            <p>---</p>
-            <p>----</p>
-            <hr>
-            <p>Humidity: --%</p>
-            <p>Cloud Cover: --%</p>
-            <p>Visibility: -- km</p>
+
+        <div id="weatherContainer" class="weather-container">
+            <h2 id="cityName">City Name</h2>
+            <p id="temperature">Temperature: --°C</p>
+            <p id="weatherDesc">Condition: --</p>
+            <img id="weatherIcon" src="" alt="Weather Icon" style="display: none;">
         </div>
-    </div>
+    </main>
+
+    <footer>
+        © 2025 Urvara. All Rights Reserved.
+    </footer>
 
     <script src="weather.js"></script>
 </body>
