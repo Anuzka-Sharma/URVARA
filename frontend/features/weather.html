@@ -3,143 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Weather - Urava</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-        .header {
-            background-color: #222;
-            color: #fff;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .header .menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .header .menu a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .header .menu a:hover {
-            text-decoration: underline;
-        }
-
-        .content {
-            background-image: url('your-image-url.jpg'); /* अपनी इमेज का URL डालें */
-            background-size: cover;
-            background-position: center;
-            text-align: center;
-            padding: 100px 20px;
-            color: #fff;
-        }
-
-        .content h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .content p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-
-        .weather-days {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        .weather-days .day {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            margin: 0 10px;
-            border-radius: 8px;
-        }
-
-        .weather-days .day h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .weather-days .day p {
-            font-size: 16px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #eee;
-            border-top: 1px solid #ddd;
-        }
-    </style>
+    <title>Weather Updates</title>
+    <link rel="stylesheet" href="weather.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">Simple Weather</div>
-        <div class="menu">
-            <a href="#">Shortcodes & Widget</a>
-            <a href="#">Monday</a>
-            <a href="#">Tuesday</a>
-            <a href="#">Wednesday</a>
-            <a href="#">Need Help?</a>
-            <a href="#">Purchase Plugin</a>
-            <a href="#">Q</a>
-        </div>
-    </header>
 
-    <section class="content">
-        <h1>Simple Weather</h1>
-        <p>WordPress Plugin</p>
-        <div class="weather-days">
-            <div class="day">
-                <h3>Monday</h3>
-                <p>19°C</p>
-            </div>
-            <div class="day">
-                <h3>Tuesday</h3>
-                <p>21°C</p>
-            </div>
-            <div class="day">
-                <h3>Wednesday</h3>
-                <p>19°C</p>
-            </div>
-            <div class="day">
-                <h3>Thursday</h3>
-                <p>22°C</p>
-            </div>
-            <div class="day">
-                <h3>Friday</h3>
-                <p>21°C</p>
-            </div>
-            <div class="day">
-                <h3>Saturday</h3>
-                <p>16°C</p>
-            </div>
+    <div class="container">
+        <h1>The Only Weather Forecast You Need</h1>
+        <div class="search-box">
+            <input type="text" id="locationInput" placeholder="Enter location">
+            <button onclick="getWeather()">🔍</button>
         </div>
-        <p>Simple Weather is a beautiful weather WordPress plugin that displays the weather via shortcode or via widgets.</p>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Urava. All Rights Reserved.</p>
-    </footer>
+        <div class="weather-card" id="weatherCard">
+            <h2>--°</h2>
+            <p>---</p>
+            <p>----</p>
+            <hr>
+            <p>Humidity: --%</p>
+            <p>Cloud Cover: --%</p>
+            <p>Visibility: -- km</p>
+        </div>
+    </div>
 
     <script src="weather.js"></script>
 </body>
