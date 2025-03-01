@@ -138,10 +138,15 @@ nav ul li a {
     width: 60px;
     margin-bottom: 10px;
 }
+.feature-card {
+    cursor: pointer; /* 🔥 Click indicator */
+    transition: transform 0.2s ease-in-out;
+}
 
 .feature-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* 🔥 Hover effect */
 }
+
 
 /* Footer */
 footer {
