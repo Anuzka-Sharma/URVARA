@@ -41,7 +41,7 @@ button {
 }
 
 button:hover {
-    background: #28a745;
+    background: #218838;
 }
 
 .schemes-list {
@@ -59,8 +59,19 @@ button:hover {
     border-bottom: 1px solid #ddd;
 }
 
-.scheme h3 {
+.scheme a {
+    text-decoration: none; 
     color: #28a745;
+    font-weight: bold;
+}
+
+.scheme a:hover {
+    color: #155724;
+    text-decoration: underline;
+}
+
+.scheme h3 {
+    cursor: pointer;
 }
 
 footer {
